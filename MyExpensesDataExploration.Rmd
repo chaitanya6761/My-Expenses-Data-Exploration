@@ -5,7 +5,7 @@ output:
   html_notebook: default
 ---
 ## 1. Loading The Datadet
-```{r}
+```{r message=FALSE, warning=FALSE}
 setwd("E:/MOOC")
 expenses <- read.csv("walnut.csv",stringsAsFactors=FALSE)
 ```
@@ -29,11 +29,48 @@ expenses$MONTH <- as.factor(format(expenses$DATE,'%b'))
 expenses$PLACE <- as.factor(expenses$PLACE)
 expenses$ACCOUNT <- as.factor(expenses$ACCOUNT)
 expenses$EXPENSE <- as.factor(expenses$EXPENSE)
+expenses$CATEGORY <- ifelse(expenses$CATEGORY == "","UNKNOWN",expenses$CATEGORY)
 expenses$CATEGORY <- as.factor(expenses$CATEGORY)
 expenses$TAGS <- as.factor(expenses$TAGS)
 expenses$AMOUNT <- as.numeric(gsub(",","",expenses$AMOUNT))
 str(expenses)
 ```
+
+## 5. Expense Variable And Total Expenses:
+The expense varaiable has mainly two values, YES and NO, if the values is YES, the record can be counted as expense.
+```{r}
+summary(expenses$EXPENSE)
+```
+Now Lets transform our expenses dataset so that it includes only those records, that can be counted as expenses.
+```{r}
+expenses <- subset(expenses,expenses$EXPENSE == "Yes")
+```
+  
+#### The Total Amount Of Money Spend Till Date:
+```{r}
+sum(expenses$AMOUNT)
+```
+
+## 6. Category Varaiable :
+The category variable captures the diiferent type of categories I spend in.
+```{r}
+levels(expenses$CATEGORY)
+```
+Now lets calculate category wise spends:
+```{r}
+with(expenses,by(AMOUNT,CATEGORY,sum))
+```
+
+
+
+
+
+
+
+
+
+
+
 
 
 

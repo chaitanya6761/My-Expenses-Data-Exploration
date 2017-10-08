@@ -153,6 +153,7 @@ expenses$MONTH &lt;- as.factor(format(expenses$DATE,'%b'))
 expenses$PLACE &lt;- as.factor(expenses$PLACE)
 expenses$ACCOUNT &lt;- as.factor(expenses$ACCOUNT)
 expenses$EXPENSE &lt;- as.factor(expenses$EXPENSE)
+expenses$CATEGORY &lt;- ifelse(expenses$CATEGORY == &quot;&quot;,&quot;UNKNOWN&quot;,expenses$CATEGORY)
 expenses$CATEGORY &lt;- as.factor(expenses$CATEGORY)
 expenses$TAGS &lt;- as.factor(expenses$TAGS)
 expenses$AMOUNT &lt;- as.numeric(gsub(&quot;,&quot;,&quot;&quot;,expenses$AMOUNT))
@@ -164,10 +165,69 @@ str(expenses)</code></pre>
 ##  $ AMOUNT  : num  227 330 -515 12 571 169 379 10 10 190 ...
 ##  $ ACCOUNT : Factor w/ 16 levels &quot;Allahbad Bk  5992&quot;,..: 13 1 11 1 2 13 13 14 14 14 ...
 ##  $ EXPENSE : Factor w/ 2 levels &quot;No&quot;,&quot;Yes&quot;: 1 1 1 1 2 1 1 1 1 1 ...
-##  $ CATEGORY: Factor w/ 13 levels &quot;&quot;,&quot;BILLS&quot;,&quot;ENTERTAINMENT&quot;,..: 13 13 13 13 1 13 13 13 13 13 ...
+##  $ CATEGORY: Factor w/ 12 levels &quot;BILLS&quot;,&quot;ENTERTAINMENT&quot;,..: 12 12 12 12 12 12 12 12 12 12 ...
 ##  $ TAGS    : Factor w/ 3 levels &quot;&quot;,&quot;#Online&quot;,&quot;#Online, #Friends&quot;: 1 1 1 1 1 1 1 1 1 1 ...
 ##  $ NOTE    : chr  &quot;&quot; &quot;&quot; &quot;Indian Railway refund&quot; &quot;&quot; ...
 ##  $ MONTH   : Factor w/ 12 levels &quot;Apr&quot;,&quot;Aug&quot;,&quot;Dec&quot;,..: 1 7 7 7 6 6 6 6 6 6 ...</code></pre>
+</div>
+<div id="expense-variable-and-total-expenses" class="section level2">
+<h2>5. Expense Variable And Total Expenses:</h2>
+<p>The expense varaiable has mainly two values, YES and NO, if the values is YES, the record can be counted as expense.</p>
+<pre class="r"><code>summary(expenses$EXPENSE)</code></pre>
+<pre><code>##  No Yes 
+## 264 755</code></pre>
+<p>Now Lets transform our expenses dataset so that it includes only those records, that can be counted as expenses.</p>
+<pre class="r"><code>expenses &lt;- subset(expenses,expenses$EXPENSE == &quot;Yes&quot;)</code></pre>
+<div id="the-total-amount-of-money-spend-till-date" class="section level4">
+<h4>The Total Amount Of Money Spend Till Date:</h4>
+<pre class="r"><code>sum(expenses$AMOUNT)</code></pre>
+<pre><code>## [1] 705619.6</code></pre>
+</div>
+</div>
+<div id="category-varaiable" class="section level2">
+<h2>6. Category Varaiable :</h2>
+<p>The category variable captures the diiferent type of categories I spend in.</p>
+<pre class="r"><code>levels(expenses$CATEGORY)</code></pre>
+<pre><code>##  [1] &quot;BILLS&quot;         &quot;ENTERTAINMENT&quot; &quot;FOOD &amp; DRINKS&quot; &quot;GROCERIES&quot;    
+##  [5] &quot;HEALTH&quot;        &quot;OTHER&quot;         &quot;PERSONAL CARE&quot; &quot;RECHARGE&quot;     
+##  [9] &quot;SHOPPING&quot;      &quot;TRANSFER&quot;      &quot;TRAVEL&quot;        &quot;UNKNOWN&quot;</code></pre>
+<p>Now lets calculate category wise spends:</p>
+<pre class="r"><code>with(expenses,by(AMOUNT,CATEGORY,sum))</code></pre>
+<pre><code>## CATEGORY: BILLS
+## [1] 285928.3
+## -------------------------------------------------------- 
+## CATEGORY: ENTERTAINMENT
+## [1] 2456.37
+## -------------------------------------------------------- 
+## CATEGORY: FOOD &amp; DRINKS
+## [1] 18122.05
+## -------------------------------------------------------- 
+## CATEGORY: GROCERIES
+## [1] 10955.28
+## -------------------------------------------------------- 
+## CATEGORY: HEALTH
+## [1] 16896.38
+## -------------------------------------------------------- 
+## CATEGORY: OTHER
+## [1] 2173
+## -------------------------------------------------------- 
+## CATEGORY: PERSONAL CARE
+## [1] 207
+## -------------------------------------------------------- 
+## CATEGORY: RECHARGE
+## [1] 28306.17
+## -------------------------------------------------------- 
+## CATEGORY: SHOPPING
+## [1] 21912.2
+## -------------------------------------------------------- 
+## CATEGORY: TRANSFER
+## [1] 34769
+## -------------------------------------------------------- 
+## CATEGORY: TRAVEL
+## [1] 65836.77
+## -------------------------------------------------------- 
+## CATEGORY: UNKNOWN
+## [1] 218057</code></pre>
 </div>
 
 

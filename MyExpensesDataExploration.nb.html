@@ -176,12 +176,10 @@ $(document).ready(function () {
 <h2>1. Loading The Datadet</h2>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc2V0d2QoXCJFOi9NT09DXCIpXG5gYGAifQ== -->
-<pre class="r"><code>setwd(&quot;E:/MOOC&quot;)</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc2V0d2QoXCJFOi9NT09DXCIpXG5leHBlbnNlcyA8LSByZWFkLmNzdihcIndhbG51dC5jc3ZcIixzdHJpbmdzQXNGYWN0b3JzPUZBTFNFKVxuYGBgIn0= -->
+<pre class="r"><code>setwd(&quot;E:/MOOC&quot;)
+expenses &lt;- read.csv(&quot;walnut.csv&quot;,stringsAsFactors=FALSE)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiVGhlIHdvcmtpbmcgZGlyZWN0b3J5IHdhcyBjaGFuZ2VkIHRvIEU6L01PT0MgaW5zaWRlIGEgbm90ZWJvb2sgY2h1bmsuIFRoZSB3b3JraW5nIGRpcmVjdG9yeSB3aWxsIGJlIHJlc2V0IHdoZW4gdGhlIGNodW5rIGlzIGZpbmlzaGVkIHJ1bm5pbmcuIFVzZSB0aGUga25pdHIgcm9vdC5kaXIgb3B0aW9uIGluIHRoZSBzZXR1cCBjaHVuayB0byBjaGFuZ2UgdGhlIHRoZSB3b3JraW5nIGRpcmVjdG9yeSBmb3Igbm90ZWJvb2sgY2h1bmtzLlxuIn0= -->
-<pre><code>The working directory was changed to E:/MOOC inside a notebook chunk. The working directory will be reset when the chunk is finished running. Use the knitr root.dir option in the setup chunk to change the the working directory for notebook chunks.</code></pre>
-<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 </div>
@@ -225,19 +223,20 @@ $(document).ready(function () {
 <p>As part of data cleaning, lets remove some unnecessary columns and transform some variables like date and amount from chr variables to date and number variables.</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuI2V4cGVuc2VzIDwtIHN1YnNldChleHBlbnNlcyxzZWxlY3QgPSAtYyhOT1RFLFRJTUUpKVxuZXhwZW5zZXMkREFURSA8LSBhcy5EYXRlKGV4cGVuc2VzJERBVEUsZm9ybWF0PSclZC0lbS0leScpXG5leHBlbnNlcyRNT05USCA8LSBhcy5mYWN0b3IoZm9ybWF0KGV4cGVuc2VzJERBVEUsJyViJykpXG5leHBlbnNlcyRQTEFDRSA8LSBhcy5mYWN0b3IoZXhwZW5zZXMkUExBQ0UpXG5leHBlbnNlcyRBQ0NPVU5UIDwtIGFzLmZhY3RvcihleHBlbnNlcyRBQ0NPVU5UKVxuZXhwZW5zZXMkRVhQRU5TRSA8LSBhcy5mYWN0b3IoZXhwZW5zZXMkRVhQRU5TRSlcbmV4cGVuc2VzJENBVEVHT1JZIDwtIGFzLmZhY3RvcihleHBlbnNlcyRDQVRFR09SWSlcbmV4cGVuc2VzJFRBR1MgPC0gYXMuZmFjdG9yKGV4cGVuc2VzJFRBR1MpXG5leHBlbnNlcyRBTU9VTlQgPC0gYXMubnVtZXJpYyhnc3ViKFwiLFwiLFwiXCIsZXhwZW5zZXMkQU1PVU5UKSlcbnN0cihleHBlbnNlcylcbmBgYCJ9 -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuI2V4cGVuc2VzIDwtIHN1YnNldChleHBlbnNlcyxzZWxlY3QgPSAtYyhOT1RFLFRJTUUpKVxuZXhwZW5zZXMkREFURSA8LSBhcy5EYXRlKGV4cGVuc2VzJERBVEUsZm9ybWF0PSclZC0lbS0leScpXG5leHBlbnNlcyRNT05USCA8LSBhcy5mYWN0b3IoZm9ybWF0KGV4cGVuc2VzJERBVEUsJyViJykpXG5leHBlbnNlcyRQTEFDRSA8LSBhcy5mYWN0b3IoZXhwZW5zZXMkUExBQ0UpXG5leHBlbnNlcyRBQ0NPVU5UIDwtIGFzLmZhY3RvcihleHBlbnNlcyRBQ0NPVU5UKVxuZXhwZW5zZXMkRVhQRU5TRSA8LSBhcy5mYWN0b3IoZXhwZW5zZXMkRVhQRU5TRSlcbmV4cGVuc2VzJENBVEVHT1JZIDwtIGlmZWxzZShleHBlbnNlcyRDQVRFR09SWSA9PSBcIlwiLFwiVU5LTk9XTlwiLGV4cGVuc2VzJENBVEVHT1JZKVxuZXhwZW5zZXMkQ0FURUdPUlkgPC0gYXMuZmFjdG9yKGV4cGVuc2VzJENBVEVHT1JZKVxuZXhwZW5zZXMkVEFHUyA8LSBhcy5mYWN0b3IoZXhwZW5zZXMkVEFHUylcbmV4cGVuc2VzJEFNT1VOVCA8LSBhcy5udW1lcmljKGdzdWIoXCIsXCIsXCJcIixleHBlbnNlcyRBTU9VTlQpKVxuc3RyKGV4cGVuc2VzKVxuYGBgIn0= -->
 <pre class="r"><code>#expenses &lt;- subset(expenses,select = -c(NOTE,TIME))
 expenses$DATE &lt;- as.Date(expenses$DATE,format='%d-%m-%y')
 expenses$MONTH &lt;- as.factor(format(expenses$DATE,'%b'))
 expenses$PLACE &lt;- as.factor(expenses$PLACE)
 expenses$ACCOUNT &lt;- as.factor(expenses$ACCOUNT)
 expenses$EXPENSE &lt;- as.factor(expenses$EXPENSE)
+expenses$CATEGORY &lt;- ifelse(expenses$CATEGORY == &quot;&quot;,&quot;UNKNOWN&quot;,expenses$CATEGORY)
 expenses$CATEGORY &lt;- as.factor(expenses$CATEGORY)
 expenses$TAGS &lt;- as.factor(expenses$TAGS)
 expenses$AMOUNT &lt;- as.numeric(gsub(&quot;,&quot;,&quot;&quot;,expenses$AMOUNT))
 str(expenses)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiJ2RhdGEuZnJhbWUnOlx0MTAxOSBvYnMuIG9mICAxMCB2YXJpYWJsZXM6XG4gJCBEQVRFICAgIDogRGF0ZSwgZm9ybWF0OiBcIjIwMTUtMDQtMjRcIiBcIjIwMTUtMDYtMTJcIiBcIjIwMTUtMDYtMTJcIiBcIjIwMTUtMDYtMTJcIiAuLi5cbiAkIFRJTUUgICAgOiBjaHIgIFwiMTA6NDIgQU1cIiBcIjA3OjE2IEFNXCIgXCIxMTowNSBBTVwiIFwiMDI6MTUgUE1cIiAuLi5cbiAkIFBMQUNFICAgOiBGYWN0b3Igdy8gMTYyIGxldmVscyBcIjc4MjAwNTY0XCIsXCI5NDkzMzM5MzM0XCIsLi46IDkxIDkwIDY2IDkwIDIyIDkxIDkxIDEyMyA0IDQgLi4uXG4gJCBBTU9VTlQgIDogbnVtICAyMjcgMzMwIC01MTUgMTIgNTcxIDE2OSAzNzkgMTAgMTAgMTkwIC4uLlxuICQgQUNDT1VOVCA6IEZhY3RvciB3LyAxNiBsZXZlbHMgXCJBbGxhaGJhZCBCayAgNTk5MlwiLC4uOiAxMyAxIDExIDEgMiAxMyAxMyAxNCAxNCAxNCAuLi5cbiAkIEVYUEVOU0UgOiBGYWN0b3Igdy8gMiBsZXZlbHMgXCJOb1wiLFwiWWVzXCI6IDEgMSAxIDEgMiAxIDEgMSAxIDEgLi4uXG4gJCBDQVRFR09SWTogRmFjdG9yIHcvIDEzIGxldmVscyBcIlwiLFwiQklMTFNcIixcIkVOVEVSVEFJTk1FTlRcIiwuLjogMTMgMTMgMTMgMTMgMSAxMyAxMyAxMyAxMyAxMyAuLi5cbiAkIFRBR1MgICAgOiBGYWN0b3Igdy8gMyBsZXZlbHMgXCJcIixcIiNPbmxpbmVcIixcIiNPbmxpbmUsICNGcmllbmRzXCI6IDEgMSAxIDEgMSAxIDEgMSAxIDEgLi4uXG4gJCBOT1RFICAgIDogY2hyICBcIlwiIFwiXCIgXCJJbmRpYW4gUmFpbHdheSByZWZ1bmRcIiBcIlwiIC4uLlxuICQgTU9OVEggICA6IEZhY3RvciB3LyAxMiBsZXZlbHMgXCJBcHJcIixcIkF1Z1wiLFwiRGVjXCIsLi46IDEgNyA3IDcgNiA2IDYgNiA2IDYgLi4uXG4ifQ== -->
+<!-- rnb-output-begin eyJkYXRhIjoiJ2RhdGEuZnJhbWUnOlx0MTAxOSBvYnMuIG9mICAxMCB2YXJpYWJsZXM6XG4gJCBEQVRFICAgIDogRGF0ZSwgZm9ybWF0OiBcIjIwMTUtMDQtMjRcIiBcIjIwMTUtMDYtMTJcIiBcIjIwMTUtMDYtMTJcIiBcIjIwMTUtMDYtMTJcIiAuLi5cbiAkIFRJTUUgICAgOiBjaHIgIFwiMTA6NDIgQU1cIiBcIjA3OjE2IEFNXCIgXCIxMTowNSBBTVwiIFwiMDI6MTUgUE1cIiAuLi5cbiAkIFBMQUNFICAgOiBGYWN0b3Igdy8gMTYyIGxldmVscyBcIjc4MjAwNTY0XCIsXCI5NDkzMzM5MzM0XCIsLi46IDkxIDkwIDY2IDkwIDIyIDkxIDkxIDEyMyA0IDQgLi4uXG4gJCBBTU9VTlQgIDogbnVtICAyMjcgMzMwIC01MTUgMTIgNTcxIDE2OSAzNzkgMTAgMTAgMTkwIC4uLlxuICQgQUNDT1VOVCA6IEZhY3RvciB3LyAxNiBsZXZlbHMgXCJBbGxhaGJhZCBCayAgNTk5MlwiLC4uOiAxMyAxIDExIDEgMiAxMyAxMyAxNCAxNCAxNCAuLi5cbiAkIEVYUEVOU0UgOiBGYWN0b3Igdy8gMiBsZXZlbHMgXCJOb1wiLFwiWWVzXCI6IDEgMSAxIDEgMiAxIDEgMSAxIDEgLi4uXG4gJCBDQVRFR09SWTogRmFjdG9yIHcvIDEyIGxldmVscyBcIkJJTExTXCIsXCJFTlRFUlRBSU5NRU5UXCIsLi46IDEyIDEyIDEyIDEyIDEyIDEyIDEyIDEyIDEyIDEyIC4uLlxuICQgVEFHUyAgICA6IEZhY3RvciB3LyAzIGxldmVscyBcIlwiLFwiI09ubGluZVwiLFwiI09ubGluZSwgI0ZyaWVuZHNcIjogMSAxIDEgMSAxIDEgMSAxIDEgMSAuLi5cbiAkIE5PVEUgICAgOiBjaHIgIFwiXCIgXCJcIiBcIkluZGlhbiBSYWlsd2F5IHJlZnVuZFwiIFwiXCIgLi4uXG4gJCBNT05USCAgIDogRmFjdG9yIHcvIDEyIGxldmVscyBcIkFwclwiLFwiQXVnXCIsXCJEZWNcIiwuLjogMSA3IDcgNyA2IDYgNiA2IDYgNiAuLi5cbiJ9 -->
 <pre><code>'data.frame':   1019 obs. of  10 variables:
  $ DATE    : Date, format: &quot;2015-04-24&quot; &quot;2015-06-12&quot; &quot;2015-06-12&quot; &quot;2015-06-12&quot; ...
  $ TIME    : chr  &quot;10:42 AM&quot; &quot;07:16 AM&quot; &quot;11:05 AM&quot; &quot;02:15 PM&quot; ...
@@ -245,17 +244,109 @@ str(expenses)</code></pre>
  $ AMOUNT  : num  227 330 -515 12 571 169 379 10 10 190 ...
  $ ACCOUNT : Factor w/ 16 levels &quot;Allahbad Bk  5992&quot;,..: 13 1 11 1 2 13 13 14 14 14 ...
  $ EXPENSE : Factor w/ 2 levels &quot;No&quot;,&quot;Yes&quot;: 1 1 1 1 2 1 1 1 1 1 ...
- $ CATEGORY: Factor w/ 13 levels &quot;&quot;,&quot;BILLS&quot;,&quot;ENTERTAINMENT&quot;,..: 13 13 13 13 1 13 13 13 13 13 ...
+ $ CATEGORY: Factor w/ 12 levels &quot;BILLS&quot;,&quot;ENTERTAINMENT&quot;,..: 12 12 12 12 12 12 12 12 12 12 ...
  $ TAGS    : Factor w/ 3 levels &quot;&quot;,&quot;#Online&quot;,&quot;#Online, #Friends&quot;: 1 1 1 1 1 1 1 1 1 1 ...
  $ NOTE    : chr  &quot;&quot; &quot;&quot; &quot;Indian Railway refund&quot; &quot;&quot; ...
  $ MONTH   : Factor w/ 12 levels &quot;Apr&quot;,&quot;Aug&quot;,&quot;Dec&quot;,..: 1 7 7 7 6 6 6 6 6 6 ...</code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
+</div>
+<div id="expense-variable-and-total-expenses" class="section level2">
+<h2>5. Expense Variable And Total Expenses:</h2>
+<p>The expense varaiable has mainly two values, YES and NO, if the values is YES, the record can be counted as expense.</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc3VtbWFyeShleHBlbnNlcyRFWFBFTlNFKVxuYGBgIn0= -->
+<pre class="r"><code>summary(expenses$EXPENSE)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiIE5vIFllcyBcbiAgMCA3NTUgXG4ifQ== -->
+<pre><code> No Yes 
+  0 755 </code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>Now Lets transform our expenses dataset so that it includes only those records, that can be counted as expenses.</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZXhwZW5zZXMgPC0gc3Vic2V0KGV4cGVuc2VzLGV4cGVuc2VzJEVYUEVOU0UgPT0gXCJZZXNcIilcbmBgYCJ9 -->
+<pre class="r"><code>expenses &lt;- subset(expenses,expenses$EXPENSE == &quot;Yes&quot;)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<div id="the-total-amount-of-money-spend-till-date" class="section level4">
+<h4>The Total Amount Of Money Spend Till Date:</h4>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc3VtKGV4cGVuc2VzJEFNT1VOVClcbmBgYCJ9 -->
+<pre class="r"><code>sum(expenses$AMOUNT)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDcwNTYxOS42XG4ifQ== -->
+<pre><code>[1] 705619.6</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+</div>
+</div>
+<div id="category-varaiable" class="section level2">
+<h2>6. Category Varaiable :</h2>
+<p>The category variable captures the diiferent type of categories I spend in.</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGV2ZWxzKGV4cGVuc2VzJENBVEVHT1JZKVxuYGBgIn0= -->
+<pre class="r"><code>levels(expenses$CATEGORY)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>Now lets calculate category wise spends:</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxud2l0aChleHBlbnNlcyxieShBTU9VTlQsQ0FURUdPUlksc3VtKSlcbmBgYCJ9 -->
+<pre class="r"><code>with(expenses,by(AMOUNT,CATEGORY,sum))</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiQ0FURUdPUlk6IEJJTExTXG5bMV0gMjg1OTI4LjNcbi0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0gXG5DQVRFR09SWTogRU5URVJUQUlOTUVOVFxuWzFdIDI0NTYuMzdcbi0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0gXG5DQVRFR09SWTogRk9PRCAmIERSSU5LU1xuWzFdIDE4MTIyLjA1XG4tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tIFxuQ0FURUdPUlk6IEdST0NFUklFU1xuWzFdIDEwOTU1LjI4XG4tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tIFxuQ0FURUdPUlk6IEhFQUxUSFxuWzFdIDE2ODk2LjM4XG4tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tIFxuQ0FURUdPUlk6IE9USEVSXG5bMV0gMjE3M1xuLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLSBcbkNBVEVHT1JZOiBQRVJTT05BTCBDQVJFXG5bMV0gMjA3XG4tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tIFxuQ0FURUdPUlk6IFJFQ0hBUkdFXG5bMV0gMjgzMDYuMTdcbi0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0gXG5DQVRFR09SWTogU0hPUFBJTkdcblsxXSAyMTkxMi4yXG4tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tIFxuQ0FURUdPUlk6IFRSQU5TRkVSXG5bMV0gMzQ3Njlcbi0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0gXG5DQVRFR09SWTogVFJBVkVMXG5bMV0gNjU4MzYuNzdcbi0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0gXG5DQVRFR09SWTogVU5LTk9XTlxuWzFdIDIxODA1N1xuIn0= -->
+<pre><code>CATEGORY: BILLS
+[1] 285928.3
+------------------------------------------------------------------------------------------------------- 
+CATEGORY: ENTERTAINMENT
+[1] 2456.37
+------------------------------------------------------------------------------------------------------- 
+CATEGORY: FOOD &amp; DRINKS
+[1] 18122.05
+------------------------------------------------------------------------------------------------------- 
+CATEGORY: GROCERIES
+[1] 10955.28
+------------------------------------------------------------------------------------------------------- 
+CATEGORY: HEALTH
+[1] 16896.38
+------------------------------------------------------------------------------------------------------- 
+CATEGORY: OTHER
+[1] 2173
+------------------------------------------------------------------------------------------------------- 
+CATEGORY: PERSONAL CARE
+[1] 207
+------------------------------------------------------------------------------------------------------- 
+CATEGORY: RECHARGE
+[1] 28306.17
+------------------------------------------------------------------------------------------------------- 
+CATEGORY: SHOPPING
+[1] 21912.2
+------------------------------------------------------------------------------------------------------- 
+CATEGORY: TRANSFER
+[1] 34769
+------------------------------------------------------------------------------------------------------- 
+CATEGORY: TRAVEL
+[1] 65836.77
+------------------------------------------------------------------------------------------------------- 
+CATEGORY: UNKNOWN
+[1] 218057</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 </div>
 
-<div id="rmd-source-code">LS0tDQp0aXRsZTogIk15IEV4cGVuc2VzIERhdGEgRXhwbG9yYXRpb24iDQpvdXRwdXQ6DQogIGh0bWxfZG9jdW1lbnQ6IGRlZmF1bHQNCiAgaHRtbF9ub3RlYm9vazogZGVmYXVsdA0KLS0tDQojIyAxLiBMb2FkaW5nIFRoZSBEYXRhZGV0DQpgYGB7cn0NCnNldHdkKCJFOi9NT09DIikNCmV4cGVuc2VzIDwtIHJlYWQuY3N2KCJ3YWxudXQuY3N2IixzdHJpbmdzQXNGYWN0b3JzPUZBTFNFKQ0KYGBgDQoNCiMjIDIuIERpbWVuc2lvbnMgT2YgVGhlIERhdGFzZXQNCmBgYHtyfQ0KZGltKGV4cGVuc2VzKQ0KYGBgDQoNCiMjIDMuIERlc2NyaXB0aW9uIG9mIHRoZSB2YXJpYWJsZXMgYW5kIHRoaWVyIHR5cGVzLg0KYGBge3J9DQpzdHIoZXhwZW5zZXMpDQpgYGANCg0KIyMgNC4gRGF0YSBDbGVhbmluZyANCkFzIHBhcnQgb2YgZGF0YSBjbGVhbmluZywgbGV0cyByZW1vdmUgc29tZSB1bm5lY2Vzc2FyeSBjb2x1bW5zIGFuZCB0cmFuc2Zvcm0gc29tZSB2YXJpYWJsZXMgbGlrZSBkYXRlIGFuZCBhbW91bnQgZnJvbSBjaHIgdmFyaWFibGVzIHRvIGRhdGUgYW5kIG51bWJlciB2YXJpYWJsZXMuICANCmBgYHtyfQ0KI2V4cGVuc2VzIDwtIHN1YnNldChleHBlbnNlcyxzZWxlY3QgPSAtYyhOT1RFLFRJTUUpKQ0KZXhwZW5zZXMkREFURSA8LSBhcy5EYXRlKGV4cGVuc2VzJERBVEUsZm9ybWF0PSclZC0lbS0leScpDQpleHBlbnNlcyRNT05USCA8LSBhcy5mYWN0b3IoZm9ybWF0KGV4cGVuc2VzJERBVEUsJyViJykpDQpleHBlbnNlcyRQTEFDRSA8LSBhcy5mYWN0b3IoZXhwZW5zZXMkUExBQ0UpDQpleHBlbnNlcyRBQ0NPVU5UIDwtIGFzLmZhY3RvcihleHBlbnNlcyRBQ0NPVU5UKQ0KZXhwZW5zZXMkRVhQRU5TRSA8LSBhcy5mYWN0b3IoZXhwZW5zZXMkRVhQRU5TRSkNCmV4cGVuc2VzJENBVEVHT1JZIDwtIGFzLmZhY3RvcihleHBlbnNlcyRDQVRFR09SWSkNCmV4cGVuc2VzJFRBR1MgPC0gYXMuZmFjdG9yKGV4cGVuc2VzJFRBR1MpDQpleHBlbnNlcyRBTU9VTlQgPC0gYXMubnVtZXJpYyhnc3ViKCIsIiwiIixleHBlbnNlcyRBTU9VTlQpKQ0Kc3RyKGV4cGVuc2VzKQ0KYGBgDQoNCg0KDQoNCg==</div>
+<div id="rmd-source-code">LS0tDQp0aXRsZTogIk15IEV4cGVuc2VzIERhdGEgRXhwbG9yYXRpb24iDQpvdXRwdXQ6DQogIGh0bWxfZG9jdW1lbnQ6IGRlZmF1bHQNCiAgaHRtbF9ub3RlYm9vazogZGVmYXVsdA0KLS0tDQojIyAxLiBMb2FkaW5nIFRoZSBEYXRhZGV0DQpgYGB7ciBtZXNzYWdlPUZBTFNFLCB3YXJuaW5nPUZBTFNFfQ0Kc2V0d2QoIkU6L01PT0MiKQ0KZXhwZW5zZXMgPC0gcmVhZC5jc3YoIndhbG51dC5jc3YiLHN0cmluZ3NBc0ZhY3RvcnM9RkFMU0UpDQpgYGANCg0KIyMgMi4gRGltZW5zaW9ucyBPZiBUaGUgRGF0YXNldA0KYGBge3J9DQpkaW0oZXhwZW5zZXMpDQpgYGANCg0KIyMgMy4gRGVzY3JpcHRpb24gb2YgdGhlIHZhcmlhYmxlcyBhbmQgdGhpZXIgdHlwZXMuDQpgYGB7cn0NCnN0cihleHBlbnNlcykNCmBgYA0KDQojIyA0LiBEYXRhIENsZWFuaW5nIA0KQXMgcGFydCBvZiBkYXRhIGNsZWFuaW5nLCBsZXRzIHJlbW92ZSBzb21lIHVubmVjZXNzYXJ5IGNvbHVtbnMgYW5kIHRyYW5zZm9ybSBzb21lIHZhcmlhYmxlcyBsaWtlIGRhdGUgYW5kIGFtb3VudCBmcm9tIGNociB2YXJpYWJsZXMgdG8gZGF0ZSBhbmQgbnVtYmVyIHZhcmlhYmxlcy4gIA0KYGBge3J9DQojZXhwZW5zZXMgPC0gc3Vic2V0KGV4cGVuc2VzLHNlbGVjdCA9IC1jKE5PVEUsVElNRSkpDQpleHBlbnNlcyREQVRFIDwtIGFzLkRhdGUoZXhwZW5zZXMkREFURSxmb3JtYXQ9JyVkLSVtLSV5JykNCmV4cGVuc2VzJE1PTlRIIDwtIGFzLmZhY3Rvcihmb3JtYXQoZXhwZW5zZXMkREFURSwnJWInKSkNCmV4cGVuc2VzJFBMQUNFIDwtIGFzLmZhY3RvcihleHBlbnNlcyRQTEFDRSkNCmV4cGVuc2VzJEFDQ09VTlQgPC0gYXMuZmFjdG9yKGV4cGVuc2VzJEFDQ09VTlQpDQpleHBlbnNlcyRFWFBFTlNFIDwtIGFzLmZhY3RvcihleHBlbnNlcyRFWFBFTlNFKQ0KZXhwZW5zZXMkQ0FURUdPUlkgPC0gaWZlbHNlKGV4cGVuc2VzJENBVEVHT1JZID09ICIiLCJVTktOT1dOIixleHBlbnNlcyRDQVRFR09SWSkNCmV4cGVuc2VzJENBVEVHT1JZIDwtIGFzLmZhY3RvcihleHBlbnNlcyRDQVRFR09SWSkNCmV4cGVuc2VzJFRBR1MgPC0gYXMuZmFjdG9yKGV4cGVuc2VzJFRBR1MpDQpleHBlbnNlcyRBTU9VTlQgPC0gYXMubnVtZXJpYyhnc3ViKCIsIiwiIixleHBlbnNlcyRBTU9VTlQpKQ0Kc3RyKGV4cGVuc2VzKQ0KYGBgDQoNCiMjIDUuIEV4cGVuc2UgVmFyaWFibGUgQW5kIFRvdGFsIEV4cGVuc2VzOg0KVGhlIGV4cGVuc2UgdmFyYWlhYmxlIGhhcyBtYWlubHkgdHdvIHZhbHVlcywgWUVTIGFuZCBOTywgaWYgdGhlIHZhbHVlcyBpcyBZRVMsIHRoZSByZWNvcmQgY2FuIGJlIGNvdW50ZWQgYXMgZXhwZW5zZS4NCmBgYHtyfQ0Kc3VtbWFyeShleHBlbnNlcyRFWFBFTlNFKQ0KYGBgDQpOb3cgTGV0cyB0cmFuc2Zvcm0gb3VyIGV4cGVuc2VzIGRhdGFzZXQgc28gdGhhdCBpdCBpbmNsdWRlcyBvbmx5IHRob3NlIHJlY29yZHMsIHRoYXQgY2FuIGJlIGNvdW50ZWQgYXMgZXhwZW5zZXMuDQpgYGB7cn0NCmV4cGVuc2VzIDwtIHN1YnNldChleHBlbnNlcyxleHBlbnNlcyRFWFBFTlNFID09ICJZZXMiKQ0KYGBgDQogIA0KIyMjIyBUaGUgVG90YWwgQW1vdW50IE9mIE1vbmV5IFNwZW5kIFRpbGwgRGF0ZToNCmBgYHtyfQ0Kc3VtKGV4cGVuc2VzJEFNT1VOVCkNCmBgYA0KDQojIyA2LiBDYXRlZ29yeSBWYXJhaWFibGUgOg0KVGhlIGNhdGVnb3J5IHZhcmlhYmxlIGNhcHR1cmVzIHRoZSBkaWlmZXJlbnQgdHlwZSBvZiBjYXRlZ29yaWVzIEkgc3BlbmQgaW4uDQpgYGB7cn0NCmxldmVscyhleHBlbnNlcyRDQVRFR09SWSkNCmBgYA0KTm93IGxldHMgY2FsY3VsYXRlIGNhdGVnb3J5IHdpc2Ugc3BlbmRzOg0KYGBge3J9DQp3aXRoKGV4cGVuc2VzLGJ5KEFNT1VOVCxDQVRFR09SWSxzdW0pKQ0KYGBgDQoNCg0KDQoNCg0KDQoNCg0KDQoNCg0KDQoNCg0KDQo=</div>
 
 
 

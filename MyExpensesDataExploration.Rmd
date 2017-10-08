@@ -1,0 +1,40 @@
+---
+title: "My Expenses Data Exploration"
+output:
+  html_document: default
+  html_notebook: default
+---
+## 1. Loading The Datadet
+```{r}
+setwd("E:/MOOC")
+expenses <- read.csv("walnut.csv",stringsAsFactors=FALSE)
+```
+
+## 2. Dimensions Of The Dataset
+```{r}
+dim(expenses)
+```
+
+## 3. Description of the variables and thier types.
+```{r}
+str(expenses)
+```
+
+## 4. Data Cleaning 
+As part of data cleaning, lets remove some unnecessary columns and transform some variables like date and amount from chr variables to date and number variables.  
+```{r}
+#expenses <- subset(expenses,select = -c(NOTE,TIME))
+expenses$DATE <- as.Date(expenses$DATE,format='%d-%m-%y')
+expenses$MONTH <- as.factor(format(expenses$DATE,'%b'))
+expenses$PLACE <- as.factor(expenses$PLACE)
+expenses$ACCOUNT <- as.factor(expenses$ACCOUNT)
+expenses$EXPENSE <- as.factor(expenses$EXPENSE)
+expenses$CATEGORY <- as.factor(expenses$CATEGORY)
+expenses$TAGS <- as.factor(expenses$TAGS)
+expenses$AMOUNT <- as.numeric(gsub(",","",expenses$AMOUNT))
+str(expenses)
+```
+
+
+
+

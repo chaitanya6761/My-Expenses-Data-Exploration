@@ -6,6 +6,8 @@ output:
 ---
 ## 1. Loading The Datadet
 ```{r message=FALSE, warning=FALSE}
+library(dplyr)
+library(ggplot2)
 setwd("E:/MOOC")
 expenses <- read.csv("walnut.csv",stringsAsFactors=FALSE)
 ```
@@ -23,7 +25,7 @@ str(expenses)
 ## 4. Data Cleaning 
 As part of data cleaning, lets remove some unnecessary columns and transform some variables like date and amount from chr variables to date and number variables.  
 ```{r}
-#expenses <- subset(expenses,select = -c(NOTE,TIME))
+expenses <- subset(expenses,select = -c(NOTE,TIME))
 expenses$DATE <- as.Date(expenses$DATE,format='%d-%m-%y')
 expenses$MONTH <- as.factor(format(expenses$DATE,'%b'))
 expenses$PLACE <- as.factor(expenses$PLACE)
@@ -57,13 +59,24 @@ The category variable captures the diiferent type of categories I spend in.
 levels(expenses$CATEGORY)
 ```
 Now lets calculate category wise spends:
-```{r}
-with(expenses,by(AMOUNT,CATEGORY,sum))
+```{r warning=FALSE}
+
+expenses_by_category <- expenses %>% 
+  group_by(CATEGORY)%>%
+  summarize(total=sum(AMOUNT),n = n())%>%
+  arrange(desc(total))
+
+expenses_by_category
 ```
 
-
-
-
+```{r}
+ggplot(data=arrange(expenses_by_category,total),aes(x=CATEGORY,y=total))+
+  geom_bar(stat="identity",color="black",fill="#F79420")+
+  coord_flip()+
+  scale_y_continuous(breaks = seq(0,300000,50000))+
+  labs(y="AMOUNT SPENT",x="DIFFERENT CATEGORIES")+
+  theme(axis.text=element_text(size=12),axis.title=element_text(size=14,face="bold"))
+```
 
 
 

@@ -63,7 +63,7 @@ expenses_by_year <- expenses %>%
   summarize(total=sum(AMOUNT),n=n())
 
 ggplot(data=expenses_by_year,aes(x=YEAR,y=total))+
-  geom_bar(stat="identity",color="black", width=0.4)+
+  geom_bar(stat="identity",color="black", width=0.3,fill="#F4511E")+
   geom_text(aes(label=total), vjust=-1.2) +
   scale_y_continuous(breaks = seq(0,400000,50000),limits =c(0,400000))+
   labs(y="AMOUNT SPENT",x="DIFFERENT YEARS",title="YEAR V/S SPENDS")+
@@ -116,6 +116,7 @@ ggplot(data=expenses_by_month,aes(x=MONTH,y=total))+
   labs(y="AMOUNT SPENT",x="DIFFERENT MONTHS",title="SPENDS V/S MONTH")+
   scale_y_continuous(breaks = seq(0,65000,10000),limits = c(0,62000))+
   geom_hline(yintercept = 20000,linetype=2,size=0.9,color="black")+
+  geom_hline(yintercept = 30000,linetype=2,size=0.9,color="darkred")+
   theme(axis.text=element_text(size=12),axis.title=element_text(size=14,face="bold"))+
   theme(plot.title = element_text(hjust = 0.5,size = 14,face = "bold"))
 ```

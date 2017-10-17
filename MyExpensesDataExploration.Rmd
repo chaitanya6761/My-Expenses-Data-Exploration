@@ -127,17 +127,23 @@ expenses_by_month_category <- expenses %>%
   group_by(MONTH,CATEGORY) %>%
   summarize(total = sum(AMOUNT),
             n= n())
-
-
 expenses_by_month_category
 ```
 
-```{r message=FALSE, warning=FALSE}
-ggplot(data=expenses_by_month_category,aes(x=MONTH,y=total,fill=CATEGORY))+
+```{r message=FALSE, warning=FALSE,fig.width = 10, fig.height = 10}
+p <- ggplot(data=expenses_by_month_category,aes(x=MONTH,y=total,fill=CATEGORY))+
   geom_bar(stat = "identity",color="black",position = "stack")+
+  labs(y="AMOUNT SPENT",x="DIFFERENT MONTHS",title="CATEGORY SPENDS MONTH WISE")+
+  scale_y_continuous(breaks = seq(0,60000,10000))+
   scale_fill_manual(values = c("#98FB98","#4B0082","grey","pink","green",
                                "yellow","red","yellow","#6A5ACD","#00BFFF","#FF00FF","darkblue","darkred"))+
-  theme_classic()
+  theme(axis.text=element_text(size=12),axis.title=element_text(size=14,face="bold",hjust = -1))+
+  theme(plot.title = element_text(hjust = 0.5,size = 14,face = "bold"),axis.title.y=element_blank(),axis.ticks.y=element_blank())
+#install.packages("plotly")
+library(plotly)
+p <- ggplotly(p)
+p
+  
 ```
 
 

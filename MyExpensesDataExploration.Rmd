@@ -4,7 +4,7 @@ output:
   html_document: default
   html_notebook: default
 ---
-## 1. Loading The Datadet
+## 1. Loading The Datadet And Required Imports
 ```{r message=FALSE, warning=FALSE}
 library(dplyr)
 library(ggplot2)
@@ -23,18 +23,18 @@ str(expenses)
 ```
 
 ## 4. Data Cleaning 
-As part of data cleaning, lets remove some unnecessary columns and transform some variables like date and amount from chr variables to date and number variables.  
+As part of data cleaning, lets remove some unnecessary columns and transform some variables like date and amount from chr variables to date and number variables. The Account variable contains some sensitive information like last 4 digits of my debit and credit cards, so I am removing that variable from the dataframe.  
+
+Apart from removing some columns, I have added columns like year and month to track yearwise and monthwise expenses.
 ```{r}
-expenses <- subset(expenses,select = -c(NOTE,TIME))
+expenses <- subset(expenses,select = -c(NOTE,TIME,ACCOUNT,TAGS))
 expenses$DATE <- as.Date(expenses$DATE,format='%d-%m-%y')
 expenses$MONTH <- as.factor(format(expenses$DATE,'%b'))
 expenses$YEAR<- as.factor(format(expenses$DATE,'%Y'))
 expenses$PLACE <- as.factor(expenses$PLACE)
-expenses$ACCOUNT <- as.factor(expenses$ACCOUNT)
 expenses$EXPENSE <- as.factor(expenses$EXPENSE)
 expenses$CATEGORY <- ifelse(expenses$CATEGORY == "","UNKNOWN",expenses$CATEGORY)
 expenses$CATEGORY <- as.factor(expenses$CATEGORY)
-expenses$TAGS <- as.factor(expenses$TAGS)
 expenses$AMOUNT <- as.numeric(gsub(",","",expenses$AMOUNT))
 str(expenses)
 ```
@@ -70,6 +70,8 @@ ggplot(data=expenses_by_year,aes(x=YEAR,y=total))+
   theme(axis.text=element_text(size=10),axis.title=element_text(size=14,face="bold"))+
   theme(plot.title = element_text(hjust = 0.5,size = 14,face = "bold"))
 ```
+
+From here on, I will be considering the expenses of the 2017 only, as they are better categorized then the expenses of 2015 and 2016. 
 
 ## 6. Category Varaiable :
 The category variable captures the diiferent type of categories I spend in.
@@ -116,12 +118,27 @@ ggplot(data=expenses_by_month,aes(x=MONTH,y=total))+
   labs(y="AMOUNT SPENT",x="DIFFERENT MONTHS",title="SPENDS V/S MONTH")+
   scale_y_continuous(breaks = seq(0,65000,10000),limits = c(0,62000))+
   geom_hline(yintercept = 20000,linetype=2,size=0.9,color="black")+
-  geom_hline(yintercept = 30000,linetype=2,size=0.9,color="darkred")+
   theme(axis.text=element_text(size=12),axis.title=element_text(size=14,face="bold"))+
   theme(plot.title = element_text(hjust = 0.5,size = 14,face = "bold"))
 ```
 
+```{r}
+expenses_by_month_category <- expenses %>% 
+  group_by(MONTH,CATEGORY) %>%
+  summarize(total = sum(AMOUNT),
+            n= n())
 
+
+expenses_by_month_category
+```
+
+```{r message=FALSE, warning=FALSE}
+ggplot(data=expenses_by_month_category,aes(x=MONTH,y=total,fill=CATEGORY))+
+  geom_bar(stat = "identity",color="black",position = "stack")+
+  scale_fill_manual(values = c("#98FB98","#4B0082","grey","pink","green",
+                               "yellow","red","yellow","#6A5ACD","#00BFFF","#FF00FF","darkblue","darkred"))+
+  theme_classic()
+```
 
 
 

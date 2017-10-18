@@ -8,18 +8,19 @@ output:
 ```{r message=FALSE, warning=FALSE}
 library(dplyr)
 library(ggplot2)
+library(plotly)
 setwd("E:/MOOC")
-expenses <- read.csv("walnut.csv",stringsAsFactors=FALSE)
+expensesTemp <- read.csv("walnut.csv",stringsAsFactors=FALSE)
 ```
 
 ## 2. Dimensions Of The Dataset
 ```{r}
-dim(expenses)
+dim(expensesTemp)
 ```
 
 ## 3. Description of the variables and thier types.
 ```{r}
-str(expenses)
+str(expensesTemp)
 ```
 
 ## 4. Data Cleaning 
@@ -27,26 +28,26 @@ As part of data cleaning, lets remove some unnecessary columns and transform som
 
 Apart from removing some columns, I have added columns like year and month to track yearwise and monthwise expenses.
 ```{r}
-expenses <- subset(expenses,select = -c(NOTE,TIME,ACCOUNT,TAGS))
-expenses$DATE <- as.Date(expenses$DATE,format='%d-%m-%y')
-expenses$MONTH <- as.factor(format(expenses$DATE,'%b'))
-expenses$YEAR<- as.factor(format(expenses$DATE,'%Y'))
-expenses$PLACE <- as.factor(expenses$PLACE)
-expenses$EXPENSE <- as.factor(expenses$EXPENSE)
-expenses$CATEGORY <- ifelse(expenses$CATEGORY == "","UNKNOWN",expenses$CATEGORY)
-expenses$CATEGORY <- as.factor(expenses$CATEGORY)
-expenses$AMOUNT <- as.numeric(gsub(",","",expenses$AMOUNT))
-str(expenses)
+expensesTemp <- subset(expensesTemp,select = -c(NOTE,TIME,ACCOUNT,TAGS))
+expensesTemp$DATE <- as.Date(expensesTemp$DATE,format='%d-%m-%y')
+expensesTemp$MONTH <- as.factor(format(expensesTemp$DATE,'%b'))
+expensesTemp$YEAR<- as.factor(format(expensesTemp$DATE,'%Y'))
+expensesTemp$PLACE <- as.factor(expensesTemp$PLACE)
+expensesTemp$EXPENSE <- as.factor(expensesTemp$EXPENSE)
+expensesTemp$CATEGORY <- ifelse(expensesTemp$CATEGORY == "","UNKNOWN",expensesTemp$CATEGORY)
+expensesTemp$CATEGORY <- as.factor(expensesTemp$CATEGORY)
+expensesTemp$AMOUNT <- as.numeric(gsub(",","",expensesTemp$AMOUNT))
+str(expensesTemp)
 ```
 
 ## 5. Expense Variable And Total Expenses:
 The expense varaiable has mainly two values, YES and NO, if the values is YES, the record can be counted as expense.
 ```{r}
-summary(expenses$EXPENSE)
+summary(expensesTemp$EXPENSE)
 ```
 Now Lets transform our expenses dataset so that it includes only those records, that can be counted as expenses.
 ```{r}
-expenses <- subset(expenses,expenses$EXPENSE == "Yes")
+expenses <- subset(expensesTemp,expensesTemp$EXPENSE == "Yes")
 ```
   
 #### The Total Amount Of Money Spend Till Date:
@@ -122,6 +123,8 @@ ggplot(data=expenses_by_month,aes(x=MONTH,y=total))+
   theme(plot.title = element_text(hjust = 0.5,size = 14,face = "bold"))
 ```
 
+Now lets combine month variable with category variable to explore the month wise category spends.
+
 ```{r}
 expenses_by_month_category <- expenses %>% 
   group_by(MONTH,CATEGORY) %>%
@@ -134,17 +137,42 @@ expenses_by_month_category
 p <- ggplot(data=expenses_by_month_category,aes(x=MONTH,y=total,fill=CATEGORY))+
   geom_bar(stat = "identity",color="black",position = "stack")+
   labs(y="AMOUNT SPENT",x="DIFFERENT MONTHS",title="CATEGORY SPENDS MONTH WISE")+
-  scale_y_continuous(breaks = seq(0,60000,10000))+
+  scale_y_continuous(breaks = seq(0,60000,5000))+
   scale_fill_manual(values = c("#98FB98","#4B0082","grey","pink","green",
                                "yellow","red","yellow","#6A5ACD","#00BFFF","#FF00FF","darkblue","darkred"))+
   theme(axis.text=element_text(size=12),axis.title=element_text(size=14,face="bold",hjust = -1))+
-  theme(plot.title = element_text(hjust = 0.5,size = 14,face = "bold"),axis.title.y=element_blank(),axis.ticks.y=element_blank())
-#install.packages("plotly")
-library(plotly)
-p <- ggplotly(p)
+  theme(plot.title = element_text(hjust = 0.5,size = 14,face = "bold"),axis.title=element_blank(),axis.ticks.y=element_blank())
 p
-  
 ```
+
+To see a interactive plot of month wise category spends uncomment the code below and run the code chunk.
+```{r message=FALSE, warning=FALSE,fig.width = 10, fig.height = 15}
+
+#ggplotly(p)
+
+```
+
+## 8. Misc Facts
+
+#### A). Total Number Of ATM Visits And Amount Drawn:
+```{r}
+totalAtmVisits_2017 <- subset(expensesTemp,expensesTemp$PLACE == "ATM" & expensesTemp$YEAR == "2017")
+cat("Total Number Of Atm Visits: ", nrow(totalAtmVisits_2017))
+cat("\nTotal Amount of Money Withdrawn: ",sum(totalAtmVisits_2017$AMOUNT))
+```
+
+Now lets compare the above 2017 atm stats to 2016 atm stats to see whether **Demonitisation** played any role in number of atm withdrawls.
+```{r}
+totalAtmVisits_2016 <- subset(expensesTemp,expensesTemp$PLACE == "ATM" & expensesTemp$YEAR == "2016")
+cat("Total Number Of Atm Visits: ", nrow(totalAtmVisits_2016))
+cat("\nTotal Amount of Money Withdrawn: ",sum(totalAtmVisits_2017$AMOUNT))
+```
+
+The above stats clearly show that demonitisation played a role in decreasing my number of atm withdraws and increasing my card spends.
+
+
+
+
 
 
 

@@ -157,18 +157,52 @@ To see a interactive plot of month wise category spends uncomment the code below
 #### A). Total Number Of ATM Visits And Amount Drawn:
 ```{r}
 totalAtmVisits_2017 <- subset(expensesTemp,expensesTemp$PLACE == "ATM" & expensesTemp$YEAR == "2017")
-cat("Total Number Of Atm Visits: ", nrow(totalAtmVisits_2017))
-cat("\nTotal Amount of Money Withdrawn: ",sum(totalAtmVisits_2017$AMOUNT))
+sprintf("Total Number Of Atm Visits: ", nrow(totalAtmVisits_2017))
+sprintf("\nTotal Amount of Money Withdrawn: ",sum(totalAtmVisits_2017$AMOUNT))
 ```
 
-Now lets compare the above 2017 atm stats to 2016 atm stats to see whether **Demonitisation** played any role in number of atm withdrawls.
+Now lets compare the above 2017 atm stats to 2016 atm stats to see whether **Demonitisation** played any role in number of atm withdrawls. 
 ```{r}
 totalAtmVisits_2016 <- subset(expensesTemp,expensesTemp$PLACE == "ATM" & expensesTemp$YEAR == "2016")
-cat("Total Number Of Atm Visits: ", nrow(totalAtmVisits_2016))
-cat("\nTotal Amount of Money Withdrawn: ",sum(totalAtmVisits_2017$AMOUNT))
+sprintf("Total Number Of Atm Visits: %s", nrow(totalAtmVisits_2016))
+sprintf("Total Amount of Money Withdrawn: %s",sum(totalAtmVisits_2016$AMOUNT))
 ```
 
 The above stats clearly show that demonitisation played a role in decreasing my number of atm withdraws and increasing my card spends.
+
+#### B). Total Number Of Cab Rides Taken Till Date.
+```{r}
+cabRides <- sum(with(expensesTemp,PLACE == "OLA" |  PLACE == "OLA CABS" | PLACE == "UBER" ))
+sprintf("Total Number Of Cab Rides Taken: %s",cabRides)
+```
+
+#### C). Total Number Of Tea Cups Consumed.
+```{r}
+teaCups <- sum(with(expensesTemp,PLACE == "HATTI KAPPI"| PLACE == "HATTI KAAPI" | PLACE == "TEA" ))
+sprintf("Total Number Tea Cups Consumed: %s",teaCups)
+```
+
+#### D) Total Number Of Visits To UDUPI FOODS.
+```{r}
+udupiFoods <- sum(with(expensesTemp,PLACE == "UDIPI FOODS" | PLACE == "UDUPI FOODS"))
+sprintf("Total Number Of Visits To UDUPI FOODS: %s",udupiFoods)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

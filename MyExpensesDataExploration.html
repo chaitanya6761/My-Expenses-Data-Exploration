@@ -321,19 +321,35 @@ p</code></pre>
 <div id="a.-total-number-of-atm-visits-and-amount-drawn" class="section level4">
 <h4>A). Total Number Of ATM Visits And Amount Drawn:</h4>
 <pre class="r"><code>totalAtmVisits_2017 &lt;- subset(expensesTemp,expensesTemp$PLACE == &quot;ATM&quot; &amp; expensesTemp$YEAR == &quot;2017&quot;)
-cat(&quot;Total Number Of Atm Visits: &quot;, nrow(totalAtmVisits_2017))</code></pre>
-<pre><code>## Total Number Of Atm Visits:  8</code></pre>
-<pre class="r"><code>cat(&quot;\nTotal Amount of Money Withdrawn: &quot;,sum(totalAtmVisits_2017$AMOUNT))</code></pre>
-<pre><code>## 
-## Total Amount of Money Withdrawn:  16100</code></pre>
+sprintf(&quot;Total Number Of Atm Visits: &quot;, nrow(totalAtmVisits_2017))</code></pre>
+<pre><code>## [1] &quot;Total Number Of Atm Visits: &quot;</code></pre>
+<pre class="r"><code>sprintf(&quot;\nTotal Amount of Money Withdrawn: &quot;,sum(totalAtmVisits_2017$AMOUNT))</code></pre>
+<pre><code>## [1] &quot;\nTotal Amount of Money Withdrawn: &quot;</code></pre>
 <p>Now lets compare the above 2017 atm stats to 2016 atm stats to see whether <strong>Demonitisation</strong> played any role in number of atm withdrawls.</p>
 <pre class="r"><code>totalAtmVisits_2016 &lt;- subset(expensesTemp,expensesTemp$PLACE == &quot;ATM&quot; &amp; expensesTemp$YEAR == &quot;2016&quot;)
-cat(&quot;Total Number Of Atm Visits: &quot;, nrow(totalAtmVisits_2016))</code></pre>
-<pre><code>## Total Number Of Atm Visits:  46</code></pre>
-<pre class="r"><code>cat(&quot;\nTotal Amount of Money Withdrawn: &quot;,sum(totalAtmVisits_2017$AMOUNT))</code></pre>
-<pre><code>## 
-## Total Amount of Money Withdrawn:  16100</code></pre>
+sprintf(&quot;Total Number Of Atm Visits: %s&quot;, nrow(totalAtmVisits_2016))</code></pre>
+<pre><code>## [1] &quot;Total Number Of Atm Visits: 46&quot;</code></pre>
+<pre class="r"><code>sprintf(&quot;Total Amount of Money Withdrawn: %s&quot;,sum(totalAtmVisits_2016$AMOUNT))</code></pre>
+<pre><code>## [1] &quot;Total Amount of Money Withdrawn: 100823&quot;</code></pre>
 <p>The above stats clearly show that demonitisation played a role in decreasing my number of atm withdraws and increasing my card spends.</p>
+</div>
+<div id="b.-total-number-of-cab-rides-taken-till-date." class="section level4">
+<h4>B). Total Number Of Cab Rides Taken Till Date.</h4>
+<pre class="r"><code>cabRides &lt;- sum(with(expensesTemp,PLACE == &quot;OLA&quot; |  PLACE == &quot;OLA CABS&quot; | PLACE == &quot;UBER&quot; ))
+sprintf(&quot;Total Number Of Cab Rides Taken: %s&quot;,cabRides)</code></pre>
+<pre><code>## [1] &quot;Total Number Of Cab Rides Taken: 36&quot;</code></pre>
+</div>
+<div id="c.-total-number-of-tea-cups-consumed." class="section level4">
+<h4>C). Total Number Of Tea Cups Consumed.</h4>
+<pre class="r"><code>teaCups &lt;- sum(with(expensesTemp,PLACE == &quot;HATTI KAPPI&quot;| PLACE == &quot;HATTI KAAPI&quot; | PLACE == &quot;TEA&quot; ))
+sprintf(&quot;Total Number Tea Cups Consumed: %s&quot;,teaCups)</code></pre>
+<pre><code>## [1] &quot;Total Number Tea Cups Consumed: 25&quot;</code></pre>
+</div>
+<div id="d-total-number-of-visits-to-udupi-foods." class="section level4">
+<h4>D) Total Number Of Visits To UDUPI FOODS.</h4>
+<pre class="r"><code>udupiFoods &lt;- sum(with(expensesTemp,PLACE == &quot;UDIPI FOODS&quot; | PLACE == &quot;UDUPI FOODS&quot;))
+sprintf(&quot;Total Number Of Visits To UDUPI FOODS: %s&quot;,udupiFoods)</code></pre>
+<pre><code>## [1] &quot;Total Number Of Visits To UDUPI FOODS: 14&quot;</code></pre>
 </div>
 </div>
 

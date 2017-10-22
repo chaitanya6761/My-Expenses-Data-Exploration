@@ -18,7 +18,7 @@ expensesTemp <- read.csv("walnut.csv",stringsAsFactors=FALSE)
 dim(expensesTemp)
 ```
 
-## 3. Description of the variables and thier types.
+  ## 3. Description of the variables and their types.
 ```{r}
 str(expensesTemp)
 ```
@@ -26,7 +26,7 @@ str(expensesTemp)
 ## 4. Data Cleaning 
 As part of data cleaning, lets remove some unnecessary columns and transform some variables like date and amount from chr variables to date and number variables. The Account variable contains some sensitive information like last 4 digits of my debit and credit cards, so I am removing that variable from the dataframe.  
 
-Apart from removing some columns, I have added columns like year and month to track yearwise and monthwise expenses.
+Apart from removing some columns, I have added columns like year and month to track year-wise and month-wise expenses.
 ```{r}
 expensesTemp <- subset(expensesTemp,select = -c(NOTE,TIME,ACCOUNT,TAGS))
 expensesTemp$DATE <- as.Date(expensesTemp$DATE,format='%d-%m-%y')
@@ -41,7 +41,7 @@ str(expensesTemp)
 ```
 
 ## 5. Expense Variable And Total Expenses:
-The expense varaiable has mainly two values, YES and NO, if the values is YES, the record can be counted as expense.
+The expense variable has mainly two values, YES and NO, if the values is YES, the record can be counted as expense.
 ```{r}
 summary(expensesTemp$EXPENSE)
 ```
@@ -75,7 +75,7 @@ ggplot(data=expenses_by_year,aes(x=YEAR,y=total))+
 From here on, I will be considering the expenses of the 2017 only, as they are better categorized then the expenses of 2015 and 2016. 
 
 ## 6. Category Varaiable :
-The category variable captures the diiferent type of categories I spend in.
+The category variable captures the different type of categories I spend in.
 ```{r}
 levels(expenses$CATEGORY)
 ```
@@ -157,18 +157,18 @@ To see a interactive plot of month wise category spends uncomment the code below
 #### A). Total Number Of ATM Visits And Amount Drawn:
 ```{r}
 totalAtmVisits_2017 <- subset(expensesTemp,expensesTemp$PLACE == "ATM" & expensesTemp$YEAR == "2017")
-sprintf("Total Number Of Atm Visits: ", nrow(totalAtmVisits_2017))
-sprintf("\nTotal Amount of Money Withdrawn: ",sum(totalAtmVisits_2017$AMOUNT))
+sprintf("Total Number Of Atm Visits: %s", nrow(totalAtmVisits_2017))
+sprintf("\nTotal Amount of Money Withdrawn: %s",sum(totalAtmVisits_2017$AMOUNT))
 ```
 
-Now lets compare the above 2017 atm stats to 2016 atm stats to see whether **Demonitisation** played any role in number of atm withdrawls. 
+Now lets compare the above 2017 ATM stats to 2016 ATM stats to see whether **Demonitisation** played any role in number of ATM withdrawals. 
 ```{r}
 totalAtmVisits_2016 <- subset(expensesTemp,expensesTemp$PLACE == "ATM" & expensesTemp$YEAR == "2016")
 sprintf("Total Number Of Atm Visits: %s", nrow(totalAtmVisits_2016))
 sprintf("Total Amount of Money Withdrawn: %s",sum(totalAtmVisits_2016$AMOUNT))
 ```
 
-The above stats clearly show that demonitisation played a role in decreasing my number of atm withdraws and increasing my card spends.
+The above stats clearly show that demonetization played a role in decreasing my number of ATM withdraws and increasing my card spends.
 
 #### B). Total Number Of Cab Rides Taken Till Date.
 ```{r}

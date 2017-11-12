@@ -4,6 +4,8 @@ output:
   html_document: default
   html_notebook: default
 ---
+This tiny dataset which contains about more than 1000 rows with 9 variables each has information about my expenses from April 2015 to till date. This dataset is obtained from an andriod app "Walnut", which is a expense tracker.   
+
 ## 1. Loading The Datadet And Required Imports
 ```{r message=FALSE, warning=FALSE}
 library(dplyr)
@@ -18,7 +20,7 @@ expensesTemp <- read.csv("walnut.csv",stringsAsFactors=FALSE)
 dim(expensesTemp)
 ```
 
-  ## 3. Description of the variables and their types.
+## 3. Description of the variables and their types.
 ```{r}
 str(expensesTemp)
 ```
@@ -92,7 +94,7 @@ expenses_by_category
 ```
 
 ```{r}
-ggplot(data=arrange(expenses_by_category,total),aes(x=CATEGORY,y=total))+
+ggplot(data=arrange(expenses_by_category,total),aes(x=reorder(CATEGORY,total),y=total))+
   geom_bar(stat="identity",color="black",fill="#F4511E",width = 0.6)+
   geom_text(aes(label=total), hjust=-0.2) +
   coord_flip()+

@@ -3,4 +3,4 @@ This tiny dataset which contains about more than 1000 rows with 9 variables each
 Link To Report: [Report](http://htmlpreview.github.io/?https://github.com/chaitanya6761/My-Expenses-Data-Exploration/blob/master/MyExpensesDataExploration.html).
 
 ### Plots :
-![](https://raw.githubusercontent.com/chaitanya6761/My-Expenses-Data-Exploration/master/outputs.gif)
+![](https://raw.githubusercontent.com/chaitanya6761/My-Expenses-Data-Exploration/master/outputs/outputs.gif)

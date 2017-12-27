@@ -71,7 +71,7 @@ ggplot(data=expenses_by_year,aes(x=YEAR,y=total))+
   scale_y_continuous(breaks = seq(0,400000,50000),limits =c(0,400000))+
   labs(y="AMOUNT SPENT",x="DIFFERENT YEARS",title="YEAR V/S SPENDS")+
   theme_bw()+
-  theme(axis.text=element_text(size=10),axis.title=element_text(size=14))+
+  theme(axis.text=element_text(size=10),axis.title=element_text(size=13))+
   theme(plot.title = element_text(hjust = 0.5,size = 14,face = "bold"))+
   ggsave(filename = "outputs/fig-1.png",width = 5,height = 4)  
 ```
@@ -102,7 +102,7 @@ ggplot(data=arrange(expenses_by_category,total),aes(x=reorder(CATEGORY,total),y=
   scale_y_continuous(breaks = seq(0,101000,25000),limits = c(0,109000))+
   labs(y="AMOUNT SPENT",x="DIFFERENT CATEGORIES",title="CATEGORIES V/S SPENDS")+
   theme_bw()+
-  theme(axis.text=element_text(size=10),axis.title=element_text(size=14))+
+  theme(axis.text=element_text(size=10),axis.title=element_text(size=13))+
   theme(plot.title = element_text(hjust = 0.5,size = 14,face = "bold"))+
   ggsave(filename = "outputs/fig-2.png",width = 7,height = 5)  
 ```
@@ -126,7 +126,7 @@ ggplot(data=expenses_by_month,aes(x=MONTH,y=total))+
   scale_y_continuous(breaks = seq(0,65000,10000),limits = c(0,62000))+
   geom_hline(yintercept = 20000,linetype=2,size=0.9,color="black")+
   theme_bw()+
-  theme(axis.text=element_text(size=12),axis.title=element_text(size=14))+
+  theme(axis.text=element_text(size=12),axis.title=element_text(size=13))+
   theme(plot.title = element_text(hjust = 0.5,size = 14,face = "bold"))+
   ggsave(filename = "outputs/fig-3.png",width = 7,height = 5)  
 ```

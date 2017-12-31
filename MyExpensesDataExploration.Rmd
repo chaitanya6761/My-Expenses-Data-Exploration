@@ -198,29 +198,3 @@ sprintf("Total Number Tea Cups Consumed: %s",teaCups)
 udupiFoods <- sum(with(expensesTemp,PLACE == "UDIPI FOODS" | PLACE == "UDUPI FOODS"))
 sprintf("Total Number Of Visits To UDUPI FOODS: %s",udupiFoods)
 ```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

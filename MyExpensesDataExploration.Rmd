@@ -94,7 +94,7 @@ expenses_by_category <- expenses %>%
 expenses_by_category
 ```
 
-```{r}
+```{r fig.width = 10}
 ggplot(data=arrange(expenses_by_category,total),aes(x=reorder(CATEGORY,total),y=total))+
   geom_bar(stat="identity",color="black",fill="#F4511E",width = 0.6)+
   geom_text(aes(label=total), hjust=-0.2) +
@@ -104,7 +104,7 @@ ggplot(data=arrange(expenses_by_category,total),aes(x=reorder(CATEGORY,total),y=
   theme_bw()+
   theme(axis.text=element_text(size=10),axis.title=element_text(size=13))+
   theme(plot.title = element_text(hjust = 0.5,size = 14,face = "bold"))+
-  ggsave(filename = "outputs/fig-2.png",width = 7,height = 5)  
+  ggsave(filename = "outputs/fig-2.png",width = 8,height = 5)  
 ```
 
 ## 7. Month Varaible:
@@ -118,7 +118,7 @@ expenses_by_month <- expenses %>%
 expenses_by_month
 ```
 
-```{r}
+```{r fig.width = 10}
 ggplot(data=expenses_by_month,aes(x=MONTH,y=total))+
   geom_bar(stat="identity",color="black",fill="#F4511E",width=0.6)+
   geom_text(aes(label=total), vjust=-1.4) +
@@ -128,7 +128,7 @@ ggplot(data=expenses_by_month,aes(x=MONTH,y=total))+
   theme_bw()+
   theme(axis.text=element_text(size=12),axis.title=element_text(size=13))+
   theme(plot.title = element_text(hjust = 0.5,size = 14,face = "bold"))+
-  ggsave(filename = "outputs/fig-3.png",width = 7,height = 5)  
+  ggsave(filename = "outputs/fig-3.png",width = 10,height = 5)  
 ```
 
 Now lets combine month variable with category variable to explore the month wise category spends.
